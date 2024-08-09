@@ -1,0 +1,23 @@
+{
+    "appBarTitle": "قائمة المهام ",
+    "taskTitle":"عنوان المهمه",
+    "taskDescription":"وصف المهمه",
+    "delete":"حذف",
+   " addNewTask":"إضافة مهمة جديدة",
+    "home":"الرئيسية",
+    "settings":"الضبط",
+    "edit":"تعديل",
+    "language":"اللغة",
+    "arabic":"العربية",
+    "english":"الإنجليزية",
+    "mode":"المظهر",
+    "light":"نهاري",
+    "dark":"ليلي",
+    "addNewTask":"أضف مهمة جديدة",
+    "enteryourtask":"أدخل المهمة",
+    "entertaskdetalis":"أدخل تفاصيل المهمة",
+    "selectedTime":"اختر الوقت",
+    "addTask ":"أضف المهام",
+    "selectlanguage": "اختر اللغة",
+   "selectMode":"اختر المظهر"
+}

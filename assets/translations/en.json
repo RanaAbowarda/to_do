@@ -1,0 +1,24 @@
+{
+    "appBarTitle": "To Do List",
+    "taskTitle":"Task Title",
+    "taskDescription":"Task Description",
+    "delete":"Delete",
+   " addNewTask":"Add New Task",
+    "home":"Home",
+    "settings":"Settings",
+    "edit":"Edit",
+    "language":"Language",
+    "arabic":"Arabic",
+    "english":"English",
+    "mode":"mode",
+    "light":"Light",
+    "dark":"Dark",
+    "addNewTask":"Add New Task",
+    "enteryourtask":"enter your task",
+    "entertaskdetalis":"enter task detalis",
+    "selectedTime":"Selected time",
+    "addTask ":"Add Task ",
+    "selectlanguage": "Select Language",
+    "selectMode":"select Mode"
+   
+}
