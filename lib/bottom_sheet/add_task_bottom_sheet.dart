@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
+import 'package:to_do/models/firebase_functions.dart';
+import 'package:to_do/models/task_model.dart';
 import 'package:to_do/provider/my_provider.dart';
 import 'package:to_do/screens/my_theme_data.dart';
 
@@ -11,8 +14,11 @@ class AddTaskBootomSheet extends StatefulWidget {
   State<AddTaskBootomSheet> createState() => _AddTaskBootomSheetState();
 }
 
+var titleController = TextEditingController();
+var subTitleController = TextEditingController();
+
 class _AddTaskBootomSheetState extends State<AddTaskBootomSheet> {
-  TimeOfDay currentTime = TimeOfDay.now();
+  DateTime currentDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<MyProvider>(context);
@@ -34,6 +40,8 @@ class _AddTaskBootomSheetState extends State<AddTaskBootomSheet> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 15),
             child: TextFormField(
+                style: Theme.of(context).textTheme.bodyMedium,
+                controller: titleController,
                 decoration: InputDecoration(
                     border: UnderlineInputBorder(
                         borderSide:
@@ -50,6 +58,8 @@ class _AddTaskBootomSheetState extends State<AddTaskBootomSheet> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: TextFormField(
+                style: Theme.of(context).textTheme.bodyMedium,
+                controller: subTitleController,
                 decoration: InputDecoration(
                     border: UnderlineInputBorder(
                         borderSide:
@@ -73,9 +83,9 @@ class _AddTaskBootomSheetState extends State<AddTaskBootomSheet> {
           ),
           InkWell(
             onTap: () {
-              selectedTime();
+              selectedDate();
             },
-            child: Text(currentTime.format(context).toString().tr(),
+            child: Text(currentDate.toString().substring(0, 10).tr(),
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -89,7 +99,15 @@ class _AddTaskBootomSheetState extends State<AddTaskBootomSheet> {
                   borderRadius: BorderRadius.circular(15),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                TaskModel task = TaskModel(
+                    title: titleController.text,
+                    subTitle: subTitleController.text,
+                    date:
+                        DateUtils.dateOnly(currentDate).millisecondsSinceEpoch);
+                FirebaseFunctions.addTask(task);
+                Navigator.pop(context);
+              },
               child: Text("addTask ".tr(),
                   style: Theme.of(context)
                       .textTheme
@@ -100,13 +118,34 @@ class _AddTaskBootomSheetState extends State<AddTaskBootomSheet> {
     );
   }
 
-  Future<void> selectedTime() async {
-    final TimeOfDay? pickedTime = await showTimePicker(
+  Future<void> selectedDate() async {
+    final DateTime? selectedDay = await showDatePicker(
       context: context,
-      initialTime: currentTime,
+      initialDate: currentDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+                primary: MyThemeData.secondaryColor,
+                onPrimary: MyThemeData.secondaryDarkGrayColor,
+                onSurface: MyThemeData.secondaryDarkColor,
+                surface: MyThemeData.primaryColor),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor:
+                    MyThemeData.secondaryColor, // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
-    if (pickedTime != null && pickedTime != TimeOfDay.now()) {
-      currentTime = pickedTime;
+
+    if (selectedDay != null) {
+      currentDate = selectedDay;
       setState(() {});
     }
   }

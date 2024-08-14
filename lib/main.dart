@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/firebase_options.dart';
 import 'package:to_do/provider/my_provider.dart';
+import 'package:to_do/screens/edit_sceen.dart';
 import 'package:to_do/screens/home_screen.dart';
 import 'package:to_do/screens/my_theme_data.dart';
 import 'package:to_do/screens/splash_screen.dart';
@@ -11,7 +13,7 @@ import 'package:to_do/screens/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
+FirebaseFirestore.instance.disableNetwork();
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
@@ -41,6 +43,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HomeScreen.routeName: (context) => const HomeScreen(),
         SplashScreen.routeName: (context) => const SplashScreen(),
+        EditScreen.routeName:(context) => const EditScreen(),
       },
     );
   }

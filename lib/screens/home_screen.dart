@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<Widget> tabs = [
-    const TasksTab(),
+   const TasksTab(),
    const SettingsTab(),
   ];
 }

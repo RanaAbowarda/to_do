@@ -19,22 +19,23 @@ class _LanguageDropDownState extends State<LanguageDropDown> {
     var provider = Provider.of<MyProvider>(context);
     return DropdownButtonFormField(
         decoration: InputDecoration(
-          filled: true,
-          fillColor: provider.mode == ThemeMode.dark
-              ? MyThemeData.secondaryDarkColor
-              : MyThemeData.white,
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.zero,
-              borderSide: BorderSide(color: MyThemeData.secondaryColor)),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: MyThemeData.secondaryColor)),
-        ),
+            filled: true,
+            fillColor: provider.mode == ThemeMode.dark
+                ? MyThemeData.secondaryDarkColor
+                : MyThemeData.white,
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.zero,
+                borderSide: BorderSide(color: MyThemeData.secondaryColor)),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyThemeData.secondaryColor)),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyThemeData.secondaryColor))),
         iconEnabledColor: MyThemeData.secondaryColor,
         dropdownColor: provider.mode == ThemeMode.dark
             ? MyThemeData.primaryDarkColor
             : MyThemeData.primaryColor,
         value: valueChoose,
-        hint: Text( 
+        hint: Text(
           context.tr('selectlanguage'),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: MyThemeData.secondaryColor,
@@ -54,9 +55,9 @@ class _LanguageDropDownState extends State<LanguageDropDown> {
         onChanged: (newValue) {
           valueChoose = newValue;
           if (valueChoose == languages[0]) {
-            context.setLocale( const Locale('ar'));
+            context.setLocale(const Locale('ar'));
           } else if (valueChoose == languages[1]) {
-            context.setLocale( const Locale('en'));
+            context.setLocale(const Locale('en'));
           }
           setState(() {});
         });

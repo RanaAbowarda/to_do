@@ -19,5 +19,11 @@
     "selectedTime":"اختر الوقت",
     "addTask ":"أضف المهام",
     "selectlanguage": "اختر اللغة",
-   "selectMode":"اختر المظهر"
+   "selectMode":"اختر المظهر",
+   "somethingWrong":"لقد حدث خطأ ما",
+   "tryagain":"حاول مرة أخرى",
+   "noTasks":"لاتوجد مهام",
+   "done !":"تم انجاز المهمه",
+   "ebitTask":"تعديل المهمة",
+   "saveChanges":"حفظ التغييرات"
 }

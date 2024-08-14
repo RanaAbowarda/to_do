@@ -19,6 +19,11 @@
     "selectedTime":"Selected time",
     "addTask ":"Add Task ",
     "selectlanguage": "Select Language",
-    "selectMode":"select Mode"
-   
+    "selectMode":"select Mode",
+    "somethingWrong":"Some thing Wrong",
+    "tryagain":"Try again",
+    "noTasks":"No Tasks",
+    "done !":"Done !",
+    "ebitTask":"Ebit Task",
+    "saveChanges":"Save Changes"
 }

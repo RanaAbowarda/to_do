@@ -17,39 +17,45 @@ class _SettingsTabState extends State<SettingsTab> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<MyProvider>(context);
-    return Padding(
-      padding: const EdgeInsets.all(30.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            "language".tr(),
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: provider.mode == ThemeMode.light
-                      ? MyThemeData.black
-                      : MyThemeData.white,
-                ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          const LanguageDropDown(),
-          const SizedBox(
-            height: 30,
-          ),
-          Text(
-            "mode".tr(),
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: provider.mode == ThemeMode.light
-                      ? MyThemeData.black
-                      : MyThemeData.white,
-                ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          const ModeDropDown(),
-        ],
+    return 
+    Scaffold(
+      appBar: AppBar(
+        title: Text("settings".tr(),style: Theme.of(context).textTheme.bodyLarge,),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              "language".tr(),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: provider.mode == ThemeMode.light
+                        ? MyThemeData.black
+                        : MyThemeData.white,
+                  ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            const LanguageDropDown(),
+            const SizedBox(
+              height: 30,
+            ),
+            Text(
+              "mode".tr(),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: provider.mode == ThemeMode.light
+                        ? MyThemeData.black
+                        : MyThemeData.white,
+                  ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            const ModeDropDown(),
+          ],
+        ),
       ),
     );
   }

@@ -2,12 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/models/firebase_functions.dart';
+import 'package:to_do/models/task_model.dart';
 import 'package:to_do/provider/my_provider.dart';
+import 'package:to_do/screens/edit_sceen.dart';
 import 'package:to_do/screens/my_theme_data.dart';
 
 class TaskItems extends StatelessWidget {
-  const TaskItems({super.key});
-
+  TaskModel taskModel;
+  TaskItems({super.key,required this.taskModel});
+ 
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<MyProvider>(context);
@@ -20,14 +24,19 @@ class TaskItems extends StatelessWidget {
               icon: Icons.delete,
               label: 'delete'.tr(),
               spacing: 8,
-              onPressed: (context) {}),
+              onPressed: (context) {
+                FirebaseFunctions.deleteTask(taskModel.id);
+              }),
           SlidableAction(
               backgroundColor: MyThemeData.secondaryColor,
               foregroundColor: MyThemeData.white,
               icon: Icons.edit,
               label: 'edit'.tr(),
               spacing: 8,
-              onPressed: (context) {}),
+              onPressed: (context) {
+                Navigator.pushNamed(context,EditScreen.routeName,arguments:( taskModel)
+                );
+              }),
         ],
       ),
       child: Container(
@@ -49,7 +58,7 @@ class TaskItems extends StatelessWidget {
                 width: 4,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: MyThemeData.secondaryColor),
+                    color:taskModel.isDone?Colors.green: MyThemeData.secondaryColor),
               ),
               const SizedBox(
                 width: 15,
@@ -60,23 +69,26 @@ class TaskItems extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "taskTitle".tr(),
+                      taskModel.title.tr(),
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
-                          ?.copyWith(color: MyThemeData.secondaryColor),
+                          ?.copyWith(color:taskModel.isDone?Colors.green: MyThemeData.secondaryColor),
                     ),
                     Text(
-                      "taskDescription".tr(),
-                      style: Theme.of(context).textTheme.bodySmall,
+                     taskModel.subTitle.tr(),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {},
+             taskModel.isDone?Text("done !".tr(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.green),): ElevatedButton(
+                onPressed: () {
+                  taskModel.isDone=true;
+                  FirebaseFunctions.updateTask(taskModel);
+                },
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: MyThemeData.secondaryColor,
+                    backgroundColor:taskModel.isDone?Colors.green: MyThemeData.secondaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10))),
                 child: Icon(

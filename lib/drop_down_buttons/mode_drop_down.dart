@@ -19,16 +19,17 @@ class _ModeDropDownState extends State<ModeDropDown> {
     var provider = Provider.of<MyProvider>(context);
     return DropdownButtonFormField(
         decoration: InputDecoration(
-          filled: true,
-          fillColor: provider.mode == ThemeMode.dark
-              ? MyThemeData.secondaryDarkColor
-              : MyThemeData.white,
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.zero,
-              borderSide: BorderSide(color: MyThemeData.secondaryColor)),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: MyThemeData.secondaryColor)),
-        ),
+            filled: true,
+            fillColor: provider.mode == ThemeMode.dark
+                ? MyThemeData.secondaryDarkColor
+                : MyThemeData.white,
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.zero,
+                borderSide: BorderSide(color: MyThemeData.secondaryColor)),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyThemeData.secondaryColor)),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: MyThemeData.secondaryColor))),
         iconEnabledColor: MyThemeData.secondaryColor,
         dropdownColor: provider.mode == ThemeMode.dark
             ? MyThemeData.primaryDarkColor
