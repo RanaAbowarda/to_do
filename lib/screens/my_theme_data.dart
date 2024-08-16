@@ -16,6 +16,8 @@ class MyThemeData {
     
     scaffoldBackgroundColor: primaryColor,
     appBarTheme: AppBarTheme(
+      
+      elevation:0,
       iconTheme: IconThemeData(color: white),
       backgroundColor: secondaryColor,
     ),
@@ -54,6 +56,7 @@ class MyThemeData {
     
     scaffoldBackgroundColor: primaryDarkColor,
     appBarTheme: AppBarTheme(
+       elevation:0,
        iconTheme: IconThemeData(color:primaryDarkColor ),
       backgroundColor: secondaryColor,
     ),
@@ -65,7 +68,6 @@ class MyThemeData {
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: secondaryColor,
-      hoverColor: const Color(0xffCCCCCC),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
           side: BorderSide(color: MyThemeData.secondaryDarkColor, width: 4)),

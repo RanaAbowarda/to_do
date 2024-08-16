@@ -1,49 +1,56 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/models/firebase_functions.dart';
 import 'package:to_do/provider/my_provider.dart';
 import 'package:to_do/screens/my_theme_data.dart';
 import 'package:to_do/task_item.dart';
+import 'package:easy_date_timeline/easy_date_timeline.dart';
 
 class TasksTab extends StatefulWidget {
-   const TasksTab({super.key});
+  const TasksTab({super.key});
 
   @override
   State<TasksTab> createState() => _TasksTabState();
 }
 
 class _TasksTabState extends State<TasksTab> {
-  DateTime date=DateTime.now();
+  DateTime date = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<MyProvider>(context);
     return Column(
       children: [
-        CalendarTimeline(
-          initialDate: date,
-          firstDate: DateTime.now().subtract(const Duration(days: 365)),
-          lastDate: DateTime.now().add(const Duration(days: 365)),
-          onDateSelected: (dateTime) {
-         date=dateTime;
-         setState(() {
-           
-         });
-          },
-          leftMargin: 20,
-          monthColor: provider.mode == ThemeMode.light
-              ? MyThemeData.secondaryGrayColor
-              : MyThemeData.white,
-          dayColor: provider.mode == ThemeMode.light
-              ? MyThemeData.secondaryColor
-              : MyThemeData.white,
-          activeDayColor: MyThemeData.white,
-          activeBackgroundDayColor: MyThemeData.secondaryColor,
-          dotsColor: MyThemeData.white,
-          selectableDayPredicate: (date) => date.day != 23,
-          locale: Localizations.localeOf(context).toString(),
+        Stack(
+          children: [
+            Container(
+              height: 100,
+              color: MyThemeData.secondaryColor,
+            ),
+            EasyDateTimeLine(
+              initialDate: DateTime.now(),
+              onDateChange: (selectedDate) {},
+              activeColor: provider.mode == ThemeMode.light
+                  ? const Color(0xff85A389)
+                  : MyThemeData.primaryColor,
+              dayProps: EasyDayProps(
+                todayHighlightStyle: TodayHighlightStyle.withBackground,
+                todayHighlightColor: MyThemeData.white,
+                inactiveDayStyle: DayStyle(
+                    monthStrStyle: TextStyle(
+                      fontSize: 11,
+                      color: provider.mode == ThemeMode.light
+                          ? MyThemeData.grayDarkColor
+                          : MyThemeData.black,
+                    ),
+                    decoration: BoxDecoration(
+                        color: MyThemeData.white,
+                        borderRadius: BorderRadius.circular(10))),
+              ),
+              locale: Localizations.localeOf(context).toString(),
+            ),
+          ],
         ),
         const SizedBox(
           height: 25,
@@ -58,9 +65,9 @@ class _TasksTabState extends State<TasksTab> {
                 return Center(
                   child: Column(
                     children: [
-                       Text("somethingWrong".tr()),
+                      Text("somethingWrong".tr()),
                       ElevatedButton(
-                          onPressed: () {}, child:   Text("tryagain"..tr()))
+                          onPressed: () {}, child: Text("tryagain"..tr()))
                     ],
                   ),
                 );
