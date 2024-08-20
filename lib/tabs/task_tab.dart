@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/models/firebase_functions.dart';
 import 'package:to_do/provider/my_provider.dart';
-import 'package:to_do/screens/my_theme_data.dart';
-import 'package:to_do/task_item.dart';
+import 'package:to_do/themeing/my_theme_data.dart';
+import 'package:to_do/items/task_item.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 
 class TasksTab extends StatefulWidget {
@@ -30,7 +30,11 @@ class _TasksTabState extends State<TasksTab> {
             ),
             EasyDateTimeLine(
               initialDate: DateTime.now(),
-              onDateChange: (selectedDate) {},
+              onDateChange: (selectedDate) {
+                setState(() {
+                  date = selectedDate;
+                });
+              },
               activeColor: provider.mode == ThemeMode.light
                   ? const Color(0xff85A389)
                   : MyThemeData.primaryColor,
@@ -77,10 +81,7 @@ class _TasksTabState extends State<TasksTab> {
                 return Center(
                     child: Text(
                   "noTasks".tr(),
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: provider.mode == ThemeMode.light
-                          ? MyThemeData.black
-                          : MyThemeData.white),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ));
               }
               return Expanded(

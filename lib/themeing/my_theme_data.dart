@@ -13,11 +13,9 @@ class MyThemeData {
   static Color white = Colors.white;
   static Color black = Colors.black;
   static ThemeData lightTheme = ThemeData(
-    
     scaffoldBackgroundColor: primaryColor,
     appBarTheme: AppBarTheme(
-      
-      elevation:0,
+      elevation: 0,
       iconTheme: IconThemeData(color: white),
       backgroundColor: secondaryColor,
     ),
@@ -41,23 +39,28 @@ class MyThemeData {
       color: white,
     ),
     textTheme: TextTheme(
+      titleLarge: GoogleFonts.poppins(
+          fontSize: 22, fontWeight: FontWeight.w600, color: black),
+      titleMedium: GoogleFonts.poppins(
+          fontSize: 20, fontWeight: FontWeight.w600, color: white),
       bodyLarge: GoogleFonts.poppins(
           fontSize: 24, fontWeight: FontWeight.w700, color: white),
       bodyMedium: GoogleFonts.poppins(
-          fontSize: 18, fontWeight: FontWeight.w700, color: secondaryColor),
+          fontSize: 18, fontWeight: FontWeight.w600, color: secondaryColor),
       bodySmall: GoogleFonts.roboto(
         fontSize: 12,
         fontWeight: FontWeight.w400,
         color: const Color(0xff363636),
       ),
+      titleSmall: GoogleFonts.poppins(
+          fontSize: 30, fontWeight: FontWeight.w600, color: black),
     ),
   );
   static ThemeData darkTheme = ThemeData(
-    
     scaffoldBackgroundColor: primaryDarkColor,
     appBarTheme: AppBarTheme(
-       elevation:0,
-       iconTheme: IconThemeData(color:primaryDarkColor ),
+      elevation: 0,
+      iconTheme: IconThemeData(color: primaryDarkColor),
       backgroundColor: secondaryColor,
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -78,17 +81,23 @@ class MyThemeData {
       color: secondaryDarkColor,
     ),
     textTheme: TextTheme(
+      titleLarge: GoogleFonts.poppins(
+          fontSize: 22, fontWeight: FontWeight.w600, color: white),
+      titleMedium: GoogleFonts.poppins(
+          fontSize: 20, fontWeight: FontWeight.w600, color: white),
       bodyLarge: GoogleFonts.poppins(
           fontSize: 25, fontWeight: FontWeight.w700, color: primaryDarkColor),
       bodyMedium: GoogleFonts.poppins(
           fontSize: 20,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w600,
           color: secondaryDarkGrayColor),
       bodySmall: GoogleFonts.roboto(
         fontSize: 15,
         fontWeight: FontWeight.w400,
         color: white,
       ),
+      titleSmall: GoogleFonts.poppins(
+          fontSize: 30, fontWeight: FontWeight.w600, color: black),
     ),
   );
 }

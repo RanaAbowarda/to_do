@@ -3,17 +3,19 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/authentication/log_in.dart';
+import 'package:to_do/authentication/registeration.dart';
 import 'package:to_do/firebase_options.dart';
 import 'package:to_do/provider/my_provider.dart';
 import 'package:to_do/screens/edit_sceen.dart';
 import 'package:to_do/screens/home_screen.dart';
-import 'package:to_do/screens/my_theme_data.dart';
+import 'package:to_do/themeing/my_theme_data.dart';
 import 'package:to_do/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-FirebaseFirestore.instance.disableNetwork();
+  FirebaseFirestore.instance.disableNetwork();
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
@@ -39,11 +41,13 @@ class MyApp extends StatelessWidget {
       theme: MyThemeData.lightTheme,
       darkTheme: MyThemeData.darkTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute: SplashScreen.routeName,
+      initialRoute: LogInScreen.routeName,
       routes: {
         HomeScreen.routeName: (context) => const HomeScreen(),
         SplashScreen.routeName: (context) => const SplashScreen(),
-        EditScreen.routeName:(context) => const EditScreen(),
+        EditScreen.routeName: (context) => const EditScreen(),
+        RegisterScreen.routeName: (context) => const RegisterScreen(),
+        LogInScreen.routeName: (context) => const LogInScreen(),
       },
     );
   }

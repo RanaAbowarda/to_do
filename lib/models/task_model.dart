@@ -12,13 +12,13 @@ class TaskModel {
     this.id = "",
     this.isDone = false,
   });
-  TaskModel .fromJson(Map<String, dynamic> json) :this(
-   
-        date: json["date"],
-        subTitle: json["subTitle"],
-        title: json["title"],
-        id: json["id"],
-        isDone: json["isDone"]);
+  TaskModel.fromJson(Map<String, dynamic> json)
+      : this(
+            date: json["date"],
+            subTitle: json["subTitle"],
+            title: json["title"],
+            id: json["id"],
+            isDone: json["isDone"]);
 
   Map<String, dynamic> toJson() {
     return {

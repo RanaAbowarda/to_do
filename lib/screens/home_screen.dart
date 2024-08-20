@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/bottom_sheet/add_task_bottom_sheet.dart';
 import 'package:to_do/provider/my_provider.dart';
-import 'package:to_do/screens/my_theme_data.dart';
+import 'package:to_do/themeing/my_theme_data.dart';
 import 'package:to_do/tabs/setting_tab.dart';
 import 'package:to_do/tabs/task_tab.dart';
 
@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<Widget> tabs = [
-   const TasksTab(),
-   const SettingsTab(),
+    const TasksTab(),
+    const SettingsTab(),
   ];
 }

@@ -4,10 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:to_do/drop_down_buttons/language_drop_down.dart';
 import 'package:to_do/drop_down_buttons/mode_drop_down.dart';
 import 'package:to_do/provider/my_provider.dart';
-import 'package:to_do/screens/my_theme_data.dart';
+import 'package:to_do/themeing/my_theme_data.dart';
 
 class SettingsTab extends StatefulWidget {
- const SettingsTab({super.key});
+  const SettingsTab({super.key});
 
   @override
   State<SettingsTab> createState() => _SettingsTabState();
@@ -17,10 +17,12 @@ class _SettingsTabState extends State<SettingsTab> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<MyProvider>(context);
-    return 
-    Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: Text("settings".tr(),style: Theme.of(context).textTheme.bodyLarge,),
+        title: Text(
+          "settings".tr(),
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
