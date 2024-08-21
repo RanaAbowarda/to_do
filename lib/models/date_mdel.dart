@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-class DateModel{
+class DateModel {
   DateTime currentDate;
   DateModel({required this.currentDate});
-  Future<void> selectedDate(BuildContext context,) async {
+  Future<void> selectedDate(
+    BuildContext context,
+  ) async {
     final DateTime? selectedDay = await showDatePicker(
       context: context,
       initialDate: currentDate,
@@ -13,7 +15,6 @@ class DateModel{
 
     if (selectedDay != null) {
       currentDate = selectedDay;
-     
     }
   }
 }

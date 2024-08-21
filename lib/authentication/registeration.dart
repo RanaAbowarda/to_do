@@ -1,13 +1,14 @@
 // ignore_for_file: use_build_context_synchronously, duplicate_ignore
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do/authentication/auth.dart';
 import 'package:to_do/authentication/log_in.dart';
 import 'package:to_do/custom/custom_button.dart';
 import 'package:to_do/custom/custom_text_form_field.dart';
-import 'package:to_do/models/dialog_model.dart';
-import 'package:to_do/custom/secured_pass.dart';
+import 'package:to_do/provider/user_provider.dart';
+import 'package:to_do/themeing/my_theme_data.dart';
 
 var formKey = GlobalKey<FormState>();
 
@@ -32,6 +33,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -86,7 +88,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 CustomFormField(
                   obscureText: isSecured,
                   label: "password".tr(),
-                  suffixIcon: const SecuredPassword(),
+                  suffixIcon: securedPass(),
                   controller: password,
                   validator: (text) {
                     if (text == null || text.trim().isEmpty) {
@@ -100,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 CustomFormField(
-                  suffixIcon: const SecuredPassword(),
+                  suffixIcon: securedPass(),
                   label: "confirmPassword".tr(),
                   controller: confirmPassword,
                   obscureText: isSecured,
@@ -129,50 +131,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
 // Registeration........
   void register() async {
     if (formKey.currentState?.validate() == true) {
-      DialogModel.showLoding(context);
-      try {
-        final credential =
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      RegisterUser.register(
+          context: context,
           email: email.text,
           password: password.text,
-        );
-        // ignore: use_build_context_synchronously
-        DialogModel.hideLoading(context);
-        DialogModel.showMessage(
-            context: context,
-            message: "registersuccessefuly.".tr(),
-            posActionName: "ok".tr(),
-            posAction: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, LogInScreen.routeName, (route) => false);
-            });
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          DialogModel.hideLoading(context);
-          DialogModel.showMessage(
-              context: context,
-              message: "thepasswordprovidedistooweak.".tr(),
-              title: "erorr".tr(),
-              posActionName: "tryAgain".tr(),
-              negActionName: "cancel".tr());
-        } else if (e.code == 'email-already-in-use') {
-          DialogModel.hideLoading(context);
-          DialogModel.showMessage(
-              context: context,
-              message: "theaccountalreadyexistsforthatemail.".tr(),
-              title: "erorr".tr(),
-              posActionName: "tryAgain".tr(),
-              negActionName: "cancel".tr());
-        }
-      } catch (e) {
-        DialogModel.hideLoading(context);
-        DialogModel.showMessage(
-            context: context,
-            message: e.toString().tr(),
-            title: "erorr".tr(),
-            posActionName: "tryAgain".tr(),
-            negActionName: "cancel".tr());
-      }
+          userName: userName.text);
     }
+  }
+
+  Widget securedPass() {
+    return IconButton(
+        onPressed: () {
+          isSecured = !isSecured;
+          setState(() {});
+        },
+        icon: isSecured
+            ? Icon(
+                Icons.visibility_off,
+                color: MyThemeData.secondaryColor,
+              )
+            : Icon(
+                Icons.visibility,
+                color: MyThemeData.secondaryColor,
+              ));
   }
 }

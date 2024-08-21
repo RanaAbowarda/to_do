@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do/authentication/log_in.dart';
+import 'package:to_do/provider/user_provider.dart';
 import 'package:to_do/screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,8 +15,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 5), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      var userProvider = Provider.of<UserProvider>(context, listen: false);
+      userProvider.fireBaseUsers != null
+          ? Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()))
+          : Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const LogInScreen()));
     });
     super.initState();
   }

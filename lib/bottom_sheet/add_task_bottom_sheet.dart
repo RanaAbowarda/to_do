@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -17,7 +18,8 @@ class AddTaskBootomSheet extends StatefulWidget {
   @override
   State<AddTaskBootomSheet> createState() => _AddTaskBootomSheetState();
 }
-DateTime currentDate=DateTime.now();
+
+DateTime currentDate = DateTime.now();
 var titleController = TextEditingController();
 var subTitleController = TextEditingController();
 
@@ -77,14 +79,14 @@ class _AddTaskBootomSheetState extends State<AddTaskBootomSheet> {
               textAlign: TextAlign.start,
             ),
             InkWell(
-              onTap: ()async {
+              onTap: () async {
                 DateModel dateModel = DateModel(currentDate: currentDate);
                 await dateModel.selectedDate(context);
                 setState(() {
                   currentDate = dateModel.currentDate;
-                });},
-              child: Text(
-                 currentDate.toString().substring(0, 10).tr(),
+                });
+              },
+              child: Text(currentDate.toString().substring(0, 10).tr(),
                   textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
@@ -106,7 +108,8 @@ class _AddTaskBootomSheetState extends State<AddTaskBootomSheet> {
       TaskModel task = TaskModel(
           title: titleController.text,
           subTitle: subTitleController.text,
-          date: DateUtils.dateOnly(currentDate).millisecondsSinceEpoch);
+          date: DateUtils.dateOnly(currentDate).millisecondsSinceEpoch,
+          userId: FirebaseAuth.instance.currentUser?.uid ?? "");
       FirebaseFunctions.addTask(task);
       Navigator.pop(context);
     }

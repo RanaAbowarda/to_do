@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/bottom_sheet/add_task_bottom_sheet.dart';
 import 'package:to_do/provider/my_provider.dart';
+import 'package:to_do/provider/user_provider.dart';
 import 'package:to_do/themeing/my_theme_data.dart';
 import 'package:to_do/tabs/setting_tab.dart';
 import 'package:to_do/tabs/task_tab.dart';
@@ -20,15 +21,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<UserProvider>(context);
     var provider = Provider.of<MyProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "appBarTitle".tr(),
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: provider.mode == ThemeMode.light
-                  ? MyThemeData.white
-                  : MyThemeData.black),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "appBarTitle".tr(),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: provider.mode == ThemeMode.light
+                      ? MyThemeData.white
+                      : MyThemeData.black),
+            ),
+            Text(
+              userProvider.userModel?.name ?? "",
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: provider.mode == ThemeMode.light
+                      ? MyThemeData.white
+                      : MyThemeData.black),
+            )
+          ],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

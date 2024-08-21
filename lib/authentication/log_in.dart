@@ -1,14 +1,14 @@
 // ignore_for_file: use_build_context_synchronously, duplicate_ignore
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do/authentication/auth.dart';
 import 'package:to_do/authentication/registeration.dart';
 import 'package:to_do/custom/custom_button.dart';
 import 'package:to_do/custom/custom_text_form_field.dart';
-import 'package:to_do/models/dialog_model.dart';
-import 'package:to_do/screens/home_screen.dart';
-import 'package:to_do/custom/secured_pass.dart';
+import 'package:to_do/provider/user_provider.dart';
+import 'package:to_do/themeing/my_theme_data.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -17,6 +17,8 @@ class LogInScreen extends StatefulWidget {
   @override
   State<LogInScreen> createState() => _LogInScreenState();
 }
+
+late UserProvider userProvider;
 
 class _LogInScreenState extends State<LogInScreen> {
   TextEditingController emailController = TextEditingController();
@@ -27,6 +29,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -72,7 +75,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   ),
                   CustomFormField(
                     obscureText: isSecured,
-                    suffixIcon: const SecuredPassword(),
+                    suffixIcon: securedPass(),
                     label: "password".tr(),
                     controller: passwordController,
                     validator: (text) {
@@ -104,42 +107,27 @@ class _LogInScreenState extends State<LogInScreen> {
 
   void login() async {
     if (formKey.currentState?.validate() == true) {
-      DialogModel.showLoding(context);
-      try {
-        final credential =
-            await FirebaseAuth.instance.signInWithEmailAndPassword(
+      RegisterUser.logIn(
+          context: context,
           email: emailController.text,
-          password: passwordController.text,
-        );
-        // ignore: use_build_context_synchronously
-        DialogModel.hideLoading(context);
-        // ignore: use_build_context_synchronously
-        DialogModel.showMessage(
-            context: context,
-            message: "hello".tr(),
-            posActionName: "ok".tr(),
-            posAction: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, HomeScreen.routeName, (route) => false);
-            });
-      } on FirebaseAuthException catch (e) {
-        // ignore: use_build_context_synchronously
-        DialogModel.hideLoading(context);
-        DialogModel.showMessage(
-            context: context,
-            message: e.message!.tr(),
-            title: "erorr".tr(),
-            posActionName: "tryAgain".tr(),
-            negActionName: "cancel".tr());
-      } catch (e) {
-        DialogModel.hideLoading(context);
-        DialogModel.showMessage(
-            context: context,
-            message: e.toString().tr(),
-            title: "erorr".tr(),
-            posActionName: "tryAgain".tr(),
-            negActionName: "cancel".tr());
-      }
+          password: passwordController.text);
     }
+  }
+
+  Widget securedPass() {
+    return IconButton(
+        onPressed: () {
+          isSecured = !isSecured;
+          setState(() {});
+        },
+        icon: isSecured
+            ? Icon(
+                Icons.visibility_off,
+                color: MyThemeData.secondaryColor,
+              )
+            : Icon(
+                Icons.visibility,
+                color: MyThemeData.secondaryColor,
+              ));
   }
 }
